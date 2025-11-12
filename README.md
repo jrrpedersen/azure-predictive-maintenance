@@ -12,6 +12,9 @@ A project using Azure to deploy a predictive maintenance ML project
 
 * Results/screenshots
 
+* Sources
+  * Azure Machine Learning documentation: https://learn.microsoft.com/en-us/azure/machine-learning/?view=azureml-api-2
+
 * Overview of repo
 
 azure-predictive-maintenance/
@@ -33,6 +36,7 @@ azure-predictive-maintenance/
 │   ├─ utils.py
 
 ├─ pipeline/
+
 │   ├─ azureml_pipeline.yml
 
 ├─ deployment/
