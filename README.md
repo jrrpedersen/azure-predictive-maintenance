@@ -13,6 +13,7 @@ A project using Azure to deploy a predictive maintenance ML project
 * Results/screenshots
 
 * Overview of repo
+
 azure-predictive-maintenance/
 
 ├─ README.md
@@ -41,5 +42,7 @@ azure-predictive-maintenance/
 │   ├─ test_api.py
 
 ├─ data/ (or data download script)
+
 ├─ requirements.txt
+
 └─ LICENSE
