@@ -14,6 +14,8 @@ A project using Azure to deploy a predictive maintenance ML project
 
 * Sources
   * Azure Machine Learning documentation: https://learn.microsoft.com/en-us/azure/machine-learning/?view=azureml-api-2
+  * Datasets:
+   * SCANIA Component X dataset: a real-world multivariate time series dataset for predictive maintenance: https://www.nature.com/articles/s41597-025-04802-6?fromPaywallRec=false
 
 * Overview of repo
 
