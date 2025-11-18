@@ -3,7 +3,7 @@ from azure.ai.ml import MLClient
 from azure.ai.ml.entities import AzureDataLakeGen2Datastore
 
 # TODO: replace these values with your real ones
-SUBSCRIPTION_ID = "<YOUR-SUBSCRIPTION-ID>"
+SUBSCRIPTION_ID = "Azure subscription 1"
 RESOURCE_GROUP = "scania-pdm-rg"
 WORKSPACE_NAME = "scania-pdm-ws"
 
