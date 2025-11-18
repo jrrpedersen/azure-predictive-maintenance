@@ -30,7 +30,8 @@ Every Azure ML workspace must live inside a resource group.
 ```powershell
 New-AzResourceGroup -Name "scania-pdm-rg" -Location "westeurope"
 
-# Step 3 - Create a Storage Account (ADLS Gen2)
+# Step 3 - Create Storage Accounts
+Data lake storage (recommended to be HNS=on / ADLS Gen2)
 ```powershell
 New-AzStorageAccount `
   -ResourceGroupName "scania-pdm-rg" `
@@ -39,6 +40,21 @@ New-AzStorageAccount `
   -SkuName Standard_LRS `
   -Kind StorageV2 `
   -EnableHierarchicalNamespace $true
+
+```powershell
+$storage = Get-AzStorageAccount `
+    -ResourceGroupName "scania-pdm-rg" `
+    -Name "scaniapdmstorage"
+
+Workspace storage (must be non-HNS)
+```powershell
+$wsStorage = New-AzStorageAccount `
+    -ResourceGroupName "scania-pdm-rg" `
+    -Name "scaniapdmwsstorage" `
+    -Location "westeurope" `
+    -SkuName Standard_LRS `
+    -Kind StorageV2 `
+    -EnableHierarchicalNamespace $false
 
 # Step 4 - Create a Key Vault
 ```powershell
