@@ -17,3 +17,10 @@ Install typical ML/data stack:
 ```bash
 pip install pandas numpy scikit-learn matplotlib
 ```
+
+Using VS Code with the Github Pull extension
+- Download and install Git from: https://git-scm.com/download/win
+- Download VS Code: https://code.visualstudio.com/
+- Install the GitHub extension
+- Clone GitHub repo using VS Code
+- Open a terminal inside VS Code: conda activate azure-pdm
