@@ -34,7 +34,7 @@ New-AzStorageAccount `
 $storage = Get-AzStorageAccount `
     -ResourceGroupName "scania-pdm-rg" `
     -Name "scaniapdmstorage"
-
+```
 Workspace storage (must be non-HNS)
 ```powershell
 $wsStorage = New-AzStorageAccount `
