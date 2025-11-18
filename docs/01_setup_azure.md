@@ -4,6 +4,7 @@ Use PowerShell to log into Azure with the following command:
 
 ```powershell
 Connect-AzAccount
+```
 
 List available subscriptions:
 ```powershell
