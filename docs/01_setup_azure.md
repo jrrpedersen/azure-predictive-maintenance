@@ -44,7 +44,7 @@ $wsStorage = New-AzStorageAccount `
     -SkuName Standard_LRS `
     -Kind StorageV2 `
     -EnableHierarchicalNamespace $false
-
+```
 # Step 4 - Create a Key Vault
 ```powershell
 $keyVault = New-AzKeyVault `
@@ -69,7 +69,7 @@ Get-AzResourceProvider -ProviderNamespace "Microsoft.Insights"
 Check status with
 ```powershell
 Get-AzResourceProvider -ProviderNamespace "Microsoft.Insights"
-
+```
 Similarly
 ```powershell
 Register-AzResourceProvider -ProviderNamespace "Microsoft.MachineLearningServices"
