@@ -1,15 +1,3 @@
-# Prerequisites
-Install the Azure CLI with winget: 
-```powershell
-winget install -e --id Microsoft.AzureCLI
-Restart PowerShell and check installation:
-```powershell
-az --version
-Add the extension:
-```powershellaz extension add -n ml
-
-
-
 # Step 1 - Authenticate with Azure
 
 Use PowerShell to log into Azure with the following command:
