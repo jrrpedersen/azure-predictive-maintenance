@@ -9,16 +9,16 @@ Connect-AzAccount
 List available subscriptions:
 ```powershell
 Get-AzSubscription
-
+```
 Select the subscription
 ```powershell
 Set-AzContext -Subscription "Azure subscription 1"
-
+```
 # Step 2 - Create a Resource Group
 Every Azure ML workspace must live inside a resource group.
 ```powershell
 New-AzResourceGroup -Name "scania-pdm-rg" -Location "westeurope"
-
+```
 # Step 3 - Create Storage Accounts
 Data lake storage (recommended to be HNS=on / ADLS Gen2)
 ```powershell
@@ -29,7 +29,7 @@ New-AzStorageAccount `
   -SkuName Standard_LRS `
   -Kind StorageV2 `
   -EnableHierarchicalNamespace $true
-
+```
 ```powershell
 $storage = Get-AzStorageAccount `
     -ResourceGroupName "scania-pdm-rg" `
@@ -52,7 +52,7 @@ $keyVault = New-AzKeyVault `
     -ResourceGroupName "scania-pdm-rg" `
     -Location "westeurope" `
     -Sku Standard
-
+```
 # Step 5 - Create Application Insights
 ```powershell
 $appInsights = New-AzApplicationInsights `
@@ -60,12 +60,12 @@ $appInsights = New-AzApplicationInsights `
     -ResourceGroupName "scania-pdm-rg" `
     -Location "westeurope" `
     -ApplicationType web
-
+```
 Presupposes:
 Registering the Microsoft.Insights resource provider:
 ```powershell
 Get-AzResourceProvider -ProviderNamespace "Microsoft.Insights"
-
+```
 Check status with
 ```powershell
 Get-AzResourceProvider -ProviderNamespace "Microsoft.Insights"
@@ -73,10 +73,11 @@ Get-AzResourceProvider -ProviderNamespace "Microsoft.Insights"
 Similarly
 ```powershell
 Register-AzResourceProvider -ProviderNamespace "Microsoft.MachineLearningServices"
-
+```
+And
 ```powershell
 Register-AzResourceProvider -ProviderNamespace "Microsoft.OperationalInsights"
-
+```
 
 # Step 6 - Create the Azure ML workspace
 ```powershell
@@ -89,3 +90,4 @@ New-AzMLWorkspace `
     -ApplicationInsightId $appInsights.Id `
     -IdentityType SystemAssigned `
     -Kind "Default"
+```
