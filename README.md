@@ -14,7 +14,7 @@ A project using Azure to deploy a predictive maintenance (PdM) ML project
         - The remaining eight are named “171_0”, “666_0”, “427_0”, “837_0”, “309_0”, “835_0”, “370_0”, “100_0”] are numerical counters.
         - The rate of missing values is low, with less than 1 percent missingness per feature/column.
       * train_tte.csv:
-        - Contains the repair records of Component X collected from each vehicle, indicating the time_to_event (tte), i.e., the replacement time for Component X during the study period
+        - Contains the repair records of Component X collected from each vehicle, indicating the time_to_event (TTE), i.e., the replacement time for Component X during the study period
         - 23,550 rows
         - “length_of_study_time_step”: the number of operation time steps after Component X started working.
         - “in_study_repair”: the class label; set to 1 if Component X was repaired at the time equal to its corresponding length_of_study_time_step, or 0 in case no failure or repair event occurs during the first length_of_study_time_step of operation
