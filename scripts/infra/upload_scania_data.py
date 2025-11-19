@@ -20,12 +20,12 @@ FILES = {
     ],
     "validation": [
         "validation_operational_readouts.csv",
-        "validation_tte.csv",
+        "validation_labels.csv",
         "validation_specifications.csv",
     ],
     "test": [
         "test_operational_readouts.csv",
-        "test_tte.csv",
+        "test_labels.csv",
         "test_specifications.csv",
     ],
 }
