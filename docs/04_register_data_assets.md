@@ -40,7 +40,7 @@ scaniapdmstorage
 python ./scripts/infra/register_data_assets.py
 ```
 
-## Step Step 4 — Verify in Azure ML Studio
+## Step 4 - Verify in Azure ML Studio
 
 Go to:
 
