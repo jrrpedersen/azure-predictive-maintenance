@@ -67,3 +67,110 @@ Modeling will require:
 * Threshold tuning
 * Metrics like ROC-AUC, PR-AUC, precision-at-k
 Accuracy alone will be misleading here.
+
+## 4. Temporal Structure - Sequence Lengths Per Vehicle
+Each vehicle has a sequence of time-step sensor readings.
+
+### Sequence length per vehicle (summary):
+* Mean: 47.7 time steps
+* Std: 27.4
+* Min: 5
+* Median: 43
+* 75th percentile: 64
+* Max: 303
+
+### Key observations
+* Vehicles have highly variable sequence lengths
+* time_step is relative per vehicle, not globally aligned across vehicles
+* Sampling rate is not guaranteed to be consistent
+* There is a long tail of vehicles with >200 time steps
+
+### Engineering Impact
+This has major implications:
+1. Traditional models (XGBoost, RandomForest) require fixed-size feature vectors.
+→ We must aggregate each vehicle’s sequence into summary statistics.
+2. Sequence models (LSTM, Transformers) require:
+  * padding & masking
+  * caution due to uneven sampling
+  * more complex engineering
+Thus, aggregation-based modeling will be our first approach.
+
+## 5. Specifications Table - Categorical Metadata
+Eight categorical fields per vehicle:
+* Spec_0 ... Spec_7
+* All are object dtype
+* No missing values
+* Likely represent:
+  - model version
+  - configuration
+  - production metadata
+
+### Engineering Impact
+These features require encoding:
+* One-hot encoding (safe baseline)
+* Target encoding (for tree models)
+* Embeddings (if using deep learning)
+
+## 6. Operational Variables - Sensor Types
+There are two major sensor groups:
+
+### 1. Numerical counters (e.g., 171_0, 666_0, etc.)
+Single continuous values per time_step.
+
+### 2. Histogram-based variables
+Each histogram is represented as multiple bins:
+Examples:
+* 167_0 to 167_9
+* 291_0 to 291_10
+* 459_0 to 459_19
+* 397_0 to 397_35
+These are sensor distributions captured at each time_step.
+
+### Engineering Impact
+Histogram variables will require careful aggregation:
+* Mean across time
+* Variance
+* Dominant bin
+* Entropy
+* Slope of histogram centroid
+* Range or percentiles
+These are high-value signals for degradation modelling.
+
+## 7. Preliminary Modeling Strategy
+Based on the EDA, a robust first modeling pipeline should:
+
+### ✔ Use vehicle-level aggregation
+(one row per vehicle)
+
+### ✔ Include:
+* aggregated histogram statistics
+
+* aggregated numerical counters
+
+* encoded specifications
+
+### ✔ Handle class imbalance using:
+* class_weight
+* or XGBoost’s scale_pos_weight
+
+### ✔ Use train/validation/test splits provided by the dataset
+(no leakage risk)
+
+### ✔ Candidate first models:
+* XGBoost (strong baseline)
+* LightGBM
+* Logistic regression (sanity baseline)
+
+### ✔ Future extension:
+Sequence modeling (LSTM/Transformer) once baseline is completed.
+
+## 8. Summary of Key Insights
+*  The dataset is large and rich (1.1M+ rows of sensor data).
+*  Missing values exist but are small and manageable.
+*  The target is imbalanced (≈10% failures).
+*  Time-step sequences per vehicle are highly variable.
+*  Histogram sensor features require thoughtful aggregation.
+*  Specifications are categorical and must be encoded.
+*  A vehicle-level aggregated model is the most appropriate starting point.
+
+This EDA gives us a solid understanding of the dataset and provides a clear direction for the next stage.
