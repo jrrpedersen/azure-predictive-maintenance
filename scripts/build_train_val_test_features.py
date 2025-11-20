@@ -61,12 +61,12 @@ RAW_PATHS = {
     },
     "validation": {
         "oper": f"{FILE_SYSTEM}/validation/validation_operational_readouts.csv",
-        "tte": f"{FILE_SYSTEM}/validation/validation_tte.csv",
+        "tte": f"{FILE_SYSTEM}/validation/validation_labels.csv",
         "spec": f"{FILE_SYSTEM}/validation/validation_specifications.csv",
     },
     "test": {
         "oper": f"{FILE_SYSTEM}/test/test_operational_readouts.csv",
-        "tte": f"{FILE_SYSTEM}/test/test_tte.csv",
+        "tte": f"{FILE_SYSTEM}/test/test_labels.csv",
         "spec": f"{FILE_SYSTEM}/test/test_specifications.csv",
     },
 }
