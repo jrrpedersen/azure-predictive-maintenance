@@ -32,12 +32,12 @@ From the Azure Data Lake Storage Gen2 account `scaniapdmstorage`, filesystem `sc
 
 - **Validation:**
   - `validation/validation_operational_readouts.csv`
-  - `validation/validation_tte.csv`
+  - `validation/validation_labels.csv`
   - `validation/validation_specifications.csv`
 
 - **Test:**
   - `test/test_operational_readouts.csv`
-  - `test/test_tte.csv`
+  - `test/test_labels.csv`
   - `test/test_specifications.csv`
 
 ### 1.2 Engineered outputs (per-vehicle features)
