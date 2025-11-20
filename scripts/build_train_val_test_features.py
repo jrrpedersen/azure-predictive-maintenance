@@ -44,7 +44,7 @@ FILE_SYSTEM = "scania-dataset"
 # ⚠️ IMPORTANT:
 # Use the storage account key for now. Do NOT commit this script with the key filled in.
 # Consider reading from an environment variable in the future.
-ACCOUNT_KEY = os.environ.get("SCANIA_STORAGE_ACCOUNT_KEY", "<PASTE-KEY-HERE>")
+ACCOUNT_KEY = os.environ.get("SCANIA_STORAGE_ACCOUNT_KEY", "tMM0AEo95ysfrScREtwUNLpLj493AN1LfMlj4oIId+SruT7zsvNif48lHhY09ymSC8mXOW2o5FeI+AStLCeMiQ==") #"<PASTE-KEY-HERE>")
 
 if ACCOUNT_KEY == "<PASTE-KEY-HERE>":
     print(
@@ -61,12 +61,12 @@ RAW_PATHS = {
     },
     "validation": {
         "oper": "validation/validation_operational_readouts.csv",
-        "tte": "validation/validation_tte.csv",
+        "tte": "validation/validation_labels.csv",
         "spec": "validation/validation_specifications.csv",
     },
     "test": {
         "oper": "test/test_operational_readouts.csv",
-        "tte": "test/test_tte.csv",
+        "tte": "test/test_labels.csv",
         "spec": "test/test_specifications.csv",
     },
 }
