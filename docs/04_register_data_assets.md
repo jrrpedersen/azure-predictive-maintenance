@@ -67,3 +67,43 @@ The SCANIA dataset is now:
 * organized into train/validation/test splits
 * registered as versioned Data Assets
 * ready to be used in notebooks, training jobs, and pipelines
+
+## Check
+You can open a notebook in the scania-pdm-ws workspace and check the availability of the data.
+E.g.
+```python
+%pip install azure-ai-ml azure-identity adlfs
+```
+
+```python
+SUBSCRIPTION_ID = "<SUBSCRIPTION-ID-HERE>"
+RESOURCE_GROUP = "scania-pdm-rg"
+WORKSPACE_NAME = "scania-pdm-ws"
+
+ml_client = MLClient(
+    DefaultAzureCredential(),
+    SUBSCRIPTION_ID,
+    RESOURCE_GROUP,
+    WORKSPACE_NAME,
+)
+
+data_asset = ml_client.data.get(name="scania_raw_train", version="1")
+print(data_asset.path)
+```
+
+```python
+from adlfs import AzureBlobFileSystem
+import pandas as pd
+
+fs = AzureBlobFileSystem(
+    account_name="scaniapdmstorage",
+    account_key="<ACCOUNT-KEY-HERE>",
+)
+
+csv_path = "scania-dataset/train/train_operational_readouts.csv"
+
+with fs.open(csv_path, "rb") as f:
+    df = pd.read_csv(f)
+
+df.head()
+```
