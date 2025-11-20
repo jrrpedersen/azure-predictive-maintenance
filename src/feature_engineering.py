@@ -17,19 +17,27 @@ from typing import Dict, List, Tuple
 def _ensure_target_dataframe(df_tte: pd.DataFrame, vehicle_col: str, target_col: str) -> pd.DataFrame:
     """
     Return a dataframe with [vehicle_col, target_col].
-    Handles cases where the label column is named differently (e.g. 'label').
+    Handles cases where the label column is named differently
+    (e.g. 'label' or 'class_label').
     """
     if target_col in df_tte.columns:
+        # Training case: 'in_study_repair' exists
         return df_tte[[vehicle_col, target_col]].copy()
 
-    # Common alternative naming in validation/test files
+    # Validation/test case: label named 'class_label'
+    if "class_label" in df_tte.columns:
+        tmp = df_tte[[vehicle_col, "class_label"]].copy()
+        tmp = tmp.rename(columns={"class_label": target_col})
+        return tmp
+
+    # Alternative generic name
     if "label" in df_tte.columns:
         tmp = df_tte[[vehicle_col, "label"]].copy()
         tmp = tmp.rename(columns={"label": target_col})
         return tmp
 
     raise KeyError(
-        f"Could not find target column '{target_col}' or 'label' in df_tte. "
+        f"Could not find target column '{target_col}', 'class_label', or 'label' in df_tte. "
         f"Available columns: {list(df_tte.columns)}"
     )
 
