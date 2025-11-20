@@ -1,5 +1,3 @@
-# 03 — Feature Engineering
-
 ## Overview
 
 This document describes how the SCANIA predictive maintenance dataset is transformed from raw time-step data into a **per-vehicle feature matrix** suitable for machine learning.
@@ -230,3 +228,90 @@ Authentication is currently done using a storage **account key**:
 
 ```bash
 $env:SCANIA_STORAGE_ACCOUNT_KEY = "<your-key>"
+```
+
+and read by the script via:
+
+```python
+ACCOUNT_KEY = os.environ.get("SCANIA_STORAGE_ACCOUNT_KEY", "<PASTE-KEY-HERE>")
+```
+
+### 3.2 Workflow
+1. Train
+* Load 3 raw train CSVs from ADLS.
+* Infer histogram groups and determine which counter columns exist.
+* Call build_train_features(...) from the module.
+* Save train_vehicle_features.csv locally.
+* Capture spec_feature_cols and feature_columns for downstream use.
+
+2. Validation
+* Load raw validation CSVs.
+* Call build_eval_features(...) with:
+   - the same histogram groups,
+   - the same counter columns,
+   - spec_feature_cols from train,
+   - feature_columns from train.
+* Save validation_vehicle_features.csv locally.
+* Validation features are now aligned with training.
+
+3. Test
+* Same process as validation, using the test CSVs.
+* Save test_vehicle_features.csv locally.
+
+At the end of the script, engineered feature matrices for all three splits exist on the local filesystem of the environment where the script ran.
+
+### 4. How to Run the Feature Build Script
+From the repository root:
+```bash
+# 1. Activate environment
+conda activate azure-pdm
+
+# 2. Ensure storage key is available (temporary solution)
+set SCANIA_STORAGE_ACCOUNT_KEY=<your-key>        # Windows CMD
+# or
+$env:SCANIA_STORAGE_ACCOUNT_KEY="<your-key>"     # PowerShell
+
+# 3. Run the script
+python scripts/build_train_val_test_features.py
+```
+
+Expected output:
+
+* Messages about connecting to ADLS
+* Shapes of raw and engineered datasets
+* Three CSV files:
+   - `train_vehicle_features.csv`
+   - `validation_vehicle_features.csv`
+   - `test_vehicle_features.csv`
+
+### 5. Design Decisions
+* No NaN imputation at this stage
+  XGBoost will be used as the first baseline model, and it handles missing values natively.
+  This keeps the pipeline simpler and preserves potential signal in the missingness pattern.
+
+* Per-vehicle aggregation over sequence modeling
+  Due to variable and irregular `time_step` sequences per vehicle, aggregation to a fixed-length vector per vehicle was chosen as the primary modeling approach. This is standard practice in industrial predictive maintenance   and is well-suited for tree-based models.
+
+* Spec encoding aligned across splits
+  Because specs are one-hot encoded, the script explicitly aligns validation/test features to the training feature set to avoid mismatches.
+
+### 6. Next Steps
+The next stage, described in `03_model_training.ipynb`, will:
+
+1. Load:
+* `train_vehicle_features.csv`
+* `validation_vehicle_features.csv`
+* `test_vehicle_features.csv`
+
+2. Split features/labels:
+* `X_train, y_train`
+* `X_val, y_val`
+* `X_test, y_test`
+
+3. Train a baseline model (e.g., XGBoost) using:
+* class weighting (to handle class imbalance)
+* metrics such as ROC-AUC and PR-AUC.
+
+4. Evaluate performance and document the results.
+
+This completes the end-to-end path from raw Azure-hosted data to a trainable ML-ready dataset.
