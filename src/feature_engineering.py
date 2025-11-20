@@ -288,7 +288,7 @@ def build_eval_features(
     feature_columns: List[str],
     time_col: str = "time_step",
     vehicle_col: str = "vehicle_id",
-    target_col: str = "class_label",
+    target_col: str = "in_study_repair",
 ) -> pd.DataFrame:
     """
     Build per-vehicle feature matrix for validation/test splits.
@@ -342,7 +342,8 @@ def build_eval_features(
     df_features = df_features.merge(study_length, on=vehicle_col, how="left")
     df_features = df_features.merge(df_spec_encoded, on=vehicle_col, how="left")
 
-    df_features = df_features.merge(df_tte[[vehicle_col, target_col]], on=vehicle_col, how="left")
+    # Add target column via label_df (handles different label names like class_label)
+    df_features = df_features.merge(label_df, on=vehicle_col, how="left")
 
     # Enforce same feature structure as training
     for col in feature_columns:
