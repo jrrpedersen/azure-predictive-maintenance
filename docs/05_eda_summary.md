@@ -1,4 +1,4 @@
-# SCANIA Predictive Maintenance — EDA Summary
+# SCANIA Predictive Maintenance - EDA Summary
 ## Overview
 This document summarizes the first-stage Exploratory Data Analysis (EDA) performed on the SCANIA Component X Predictive Maintenance dataset, stored in Azure Data Lake Storage and accessed through Azure ML Studio.
 The goal of this EDA is to:
