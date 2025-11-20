@@ -25,10 +25,17 @@ def _ensure_target_dataframe(df_tte: pd.DataFrame, vehicle_col: str, target_col:
         return df_tte[[vehicle_col, target_col]].copy()
 
     # Validation/test case: label named 'class_label'
+    # if "class_label" in df_tte.columns:
+    #     tmp = df_tte[[vehicle_col, "class_label"]].copy()
+    #     tmp = tmp.rename(columns={"class_label": target_col})
+    #     return tmp
     if "class_label" in df_tte.columns:
         tmp = df_tte[[vehicle_col, "class_label"]].copy()
-        tmp = tmp.rename(columns={"class_label": target_col})
+        # Convert to binary: only class 4 = failure
+        tmp[target_col] = (tmp["class_label"] == 4).astype(int)
+        tmp = tmp[[vehicle_col, target_col]]
         return tmp
+
 
     # Alternative generic name
     if "label" in df_tte.columns:
