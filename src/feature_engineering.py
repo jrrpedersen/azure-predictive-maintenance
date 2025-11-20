@@ -14,6 +14,35 @@ import numpy as np
 import pandas as pd
 from typing import Dict, List, Tuple
 
+def _ensure_target_dataframe(df_tte: pd.DataFrame, vehicle_col: str, target_col: str) -> pd.DataFrame:
+    """
+    Return a dataframe with [vehicle_col, target_col].
+    Handles cases where the label column is named differently (e.g. 'label').
+    """
+    if target_col in df_tte.columns:
+        return df_tte[[vehicle_col, target_col]].copy()
+
+    # Common alternative naming in validation/test files
+    if "label" in df_tte.columns:
+        tmp = df_tte[[vehicle_col, "label"]].copy()
+        tmp = tmp.rename(columns={"label": target_col})
+        return tmp
+
+    raise KeyError(
+        f"Could not find target column '{target_col}' or 'label' in df_tte. "
+        f"Available columns: {list(df_tte.columns)}"
+    )
+
+
+def _compute_study_length_from_oper(df_oper: pd.DataFrame, vehicle_col: str, time_col: str) -> pd.DataFrame:
+    """
+    Compute a proxy for study length per vehicle from operational data:
+    max(time_step) per vehicle.
+    """
+    sl = df_oper.groupby(vehicle_col)[time_col].max().reset_index()
+    sl = sl.rename(columns={time_col: "study_length_time_step"})
+    return sl
+
 
 # --------------------------------------------------------------------------------------
 # Utility: Linear trend (slope) and R²
@@ -168,15 +197,17 @@ def build_train_features(
         feature_columns : list of feature columns to enforce on val/test
     """
 
-    # ----- Merge operational + TTE -----
+    # ----- Merge operational + TTE (labels only) -----
+    label_df = _ensure_target_dataframe(df_tte, vehicle_col, target_col)
+    
     df_merged = pd.merge(
         df_oper,
-        df_tte[[vehicle_col, target_col, "length_of_study_time_step"]],
+        label_df,
         on=vehicle_col,
         how="left",
         validate="many_to_one",
     )
-
+    
     # ----- Merge specs -----
     df_full = pd.merge(
         df_merged,
@@ -185,6 +216,11 @@ def build_train_features(
         how="left",
         validate="many_to_one",
     )
+    
+    # ----- Histogram-derived features -----
+    df_full = add_histogram_derived_columns(df_full, histogram_groups)
+    hist_derived_cols = [c for c in df_full.columns if c.endswith("_total") or c.endswith("_centroid")]
+
 
     # ----- Histogram-derived features -----
     df_full = add_histogram_derived_columns(df_full, histogram_groups)
@@ -208,8 +244,8 @@ def build_train_features(
     agg_hist_derived.columns = [f"{c}_{stat}" for (c, stat) in agg_hist_derived.columns.to_flat_index()]
     agg_hist_derived = agg_hist_derived.reset_index()
 
-    # ----- Study length -----
-    study_length = df_tte[[vehicle_col, "length_of_study_time_step"]].copy()
+    # ----- Study length (computed from operational data) -----
+    study_length = _compute_study_length_from_oper(df_oper, vehicle_col, time_col)
 
     # ----- Specifications encoding -----
     df_spec_encoded, spec_feature_cols = encode_specifications(df_spec)
@@ -252,9 +288,11 @@ def build_eval_features(
     """
 
     # Repeat same merge logic
+    label_df = _ensure_target_dataframe(df_tte, vehicle_col, target_col)
+
     df_merged = pd.merge(
         df_oper,
-        df_tte[[vehicle_col, target_col, "length_of_study_time_step"]],
+        label_df,
         on=vehicle_col,
         how="left",
         validate="many_to_one",
@@ -286,7 +324,7 @@ def build_eval_features(
     agg_hist_derived.columns = [f"{c}_{stat}" for (c, stat) in agg_hist_derived.columns.to_flat_index()]
     agg_hist_derived = agg_hist_derived.reset_index()
 
-    study_length = df_tte[[vehicle_col, "length_of_study_time_step"]].copy()
+    study_length = _compute_study_length_from_oper(df_oper, vehicle_col, time_col)
 
     df_spec_encoded, _ = encode_specifications(df_spec, spec_feature_cols)
 
