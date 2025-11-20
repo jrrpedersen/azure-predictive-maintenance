@@ -297,21 +297,17 @@ Expected output:
 
 ### 6. Next Steps
 The next stage, described in `03_model_training.ipynb`, will:
-
 1. Load:
-* `train_vehicle_features.csv`
-* `validation_vehicle_features.csv`
-* `test_vehicle_features.csv`
-
+   * `train_vehicle_features.csv`
+   * `validation_vehicle_features.csv`
+   * `test_vehicle_features.csv`
 2. Split features/labels:
-* `X_train, y_train`
-* `X_val, y_val`
-* `X_test, y_test`
-
+   * `X_train, y_train`
+   * `X_val, y_val`
+   * `X_test, y_test`
 3. Train a baseline model (e.g., XGBoost) using:
-* class weighting (to handle class imbalance)
-* metrics such as ROC-AUC and PR-AUC.
-
+   * class weighting (to handle class imbalance)
+   * metrics such as ROC-AUC and PR-AUC.
 4. Evaluate performance and document the results.
 
 This completes the end-to-end path from raw Azure-hosted data to a trainable ML-ready dataset.
