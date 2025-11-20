@@ -63,6 +63,8 @@ No missing values.
 The dataset is clearly imbalanced, typical of predictive maintenance.
 Modeling will require:
 * Class weighting (e.g., scale_pos_weight in XGBoost) or
+  - penalize the model more when it misclassifies the rare class (failures)
+  - the model learns to pay attention to the minority class
 * Oversampling (SMOTE) or
 * Threshold tuning
 * Metrics like ROC-AUC, PR-AUC, precision-at-k
@@ -144,9 +146,7 @@ Based on the EDA, a robust first modeling pipeline should:
 
 ### ✔ Include:
 * aggregated histogram statistics
-
 * aggregated numerical counters
-
 * encoded specifications
 
 ### ✔ Handle class imbalance using:
