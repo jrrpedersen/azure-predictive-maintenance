@@ -55,19 +55,19 @@ if ACCOUNT_KEY == "<PASTE-KEY-HERE>":
 # Raw data paths inside the filesystem
 RAW_PATHS = {
     "train": {
-        "oper": "scania-dataset/train/train_operational_readouts.csv",
-        "tte": "scania-dataset/train/train_tte.csv",
-        "spec": "scania-dataset/train/train_specifications.csv",
+        "oper": f"{FILE_SYSTEM}/train/train_operational_readouts.csv",
+        "tte": f"{FILE_SYSTEM}/train/train_tte.csv",
+        "spec": f"{FILE_SYSTEM}/train/train_specifications.csv",
     },
     "validation": {
-        "oper": "scania-dataset/validation/validation_operational_readouts.csv",
-        "tte": "scania-dataset/validation/validation_labels.csv",
-        "spec": "scania-dataset/validation/validation_specifications.csv",
+        "oper": f"{FILE_SYSTEM}/validation/validation_operational_readouts.csv",
+        "tte": f"{FILE_SYSTEM}/validation/validation_tte.csv",
+        "spec": f"{FILE_SYSTEM}/validation/validation_specifications.csv",
     },
     "test": {
-        "oper": "scania-dataset/test/test_operational_readouts.csv",
-        "tte": "scania-dataset/test/test_labels.csv",
-        "spec": "scania-dataset/test/test_specifications.csv",
+        "oper": f"{FILE_SYSTEM}/test/test_operational_readouts.csv",
+        "tte": f"{FILE_SYSTEM}/test/test_tte.csv",
+        "spec": f"{FILE_SYSTEM}/test/test_specifications.csv",
     },
 }
 
