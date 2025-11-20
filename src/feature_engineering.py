@@ -288,7 +288,7 @@ def build_eval_features(
     feature_columns: List[str],
     time_col: str = "time_step",
     vehicle_col: str = "vehicle_id",
-    target_col: str = "in_study_repair",
+    target_col: str = "class_label",
 ) -> pd.DataFrame:
     """
     Build per-vehicle feature matrix for validation/test splits.
