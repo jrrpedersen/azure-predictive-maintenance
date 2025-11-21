@@ -1,4 +1,4 @@
-# 08 Baseline Model Training
+# 07 Baseline Model Training
 
 This document summarizes the development, evaluation, and registration
 of the baseline predictive maintenance model for the Scania dataset.
