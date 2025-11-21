@@ -23,8 +23,8 @@ Because the training labels (`train_tte.csv`) provide a binary target
 (`in_study_repair ∈ {0,1}`), while validation/test labels provide
 5-class *distance-to-failure*, we converted:
 
--   `in_study_repair == 1` → **failure**\
--   `class_label == 4` → **failure**\
+-   `in_study_repair == 1` → **failure**
+-   `class_label == 4` → **failure**
 -   all other classes → **non-failure**
 
 This yielded a **binary classification problem** consistent across
@@ -45,22 +45,22 @@ The full feature set includes:
 
 ### Basic statistics (per sensor)
 
--   `mean`, `std`, `min`, `max`, `median`\
+-   `mean`, `std`, `min`, `max`, `median`
 -   quantiles: `10%`, `25%`, `75%`, `90%`
 
 ### Histogram-based features (per sensor group)
 
 For grouped channels (e.g., `167_X`, `291_X`, `459_X`, etc.):
 
--   histogram bin means\
--   histogram bin standard deviations\
+-   histogram bin means
+-   histogram bin standard deviations
 -   histogram entropy
 
 ### Trend features (for counter-like sensors)
 
--   linear regression slope over time\
--   `R²` of regression fit\
--   final observed value\
+-   linear regression slope over time
+-   `R²` of regression fit
+-   final observed value
 -   rate of increase
 
 ### Categorical encodings
@@ -72,8 +72,8 @@ features per vehicle**.
 
 Generated feature files:
 
--   `train_vehicle_features.csv`\
--   `validation_vehicle_features.csv`\
+-   `train_vehicle_features.csv`
+-   `validation_vehicle_features.csv`
 -   `test_vehicle_features.csv`
 
 ## 3. Baseline Model
@@ -150,17 +150,17 @@ ml_client.models.create_or_update(model)
 
 ### Strengths
 
--   Fully reproducible workflow\
--   Strong training performance\
--   Good failure recall on val/test\
+-   Fully reproducible workflow
+-   Strong training performance
+-   Good failure recall on val/test
 -   Reasonable benchmark
 
 ### Weaknesses
 
--   Severe class imbalance\
--   PR-AUC near zero\
--   Overfitting\
--   Threshold 0.5 inappropriate\
+-   Severe class imbalance
+-   PR-AUC near zero
+-   Overfitting
+-   Threshold 0.5 inappropriate
 -   No hyperparameter optimization
 
 ## 7. Next Steps
@@ -171,32 +171,32 @@ ml_client.models.create_or_update(model)
 
 ### Apply class imbalance strategies
 
--   `scale_pos_weight`\
--   Balanced weights\
+-   `scale_pos_weight`
+-   Balanced weights
 -   Oversampling / undersampling
 
 ### Hyperparameter tuning
 
--   Azure ML sweeps\
--   Threshold optimization\
+-   Azure ML sweeps
+-   Threshold optimization
 -   PR-AUC objective
 
 ### Feature engineering improvements
 
--   Temporal features\
--   Segmented trends\
--   Advanced histogram stats\
+-   Temporal features
+-   Segmented trends
+-   Advanced histogram stats
 -   Missing-value encoding
 
 ### Deployment
 
--   Register improved versions\
--   Deploy scoring endpoint\
+-   Register improved versions
+-   Deploy scoring endpoint
 -   Inference pipeline
 
 ## 8. Conclusion
 
 The baseline model represents a complete, reproducible first iteration
-of the predictive maintenance pipeline.\
+of the predictive maintenance pipeline.
 It provides a solid benchmark for future modeling and is now registered
 in Azure ML for use in downstream tasks.
