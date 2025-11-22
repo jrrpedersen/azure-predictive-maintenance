@@ -1,3 +1,7 @@
+# Run this on compute instance to deploy the online endpoint:
+# cd cloudfiles/code/azure-predictive-maintenance/deployment
+# python deploy_online_endpoint.py
+
 from azure.identity import DefaultAzureCredential
 from azure.ai.ml import MLClient
 from azure.ai.ml.entities import (
