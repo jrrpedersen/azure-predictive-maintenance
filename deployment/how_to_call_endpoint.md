@@ -1,4 +1,5 @@
 To get SCORING_URL and API_KEY:
+
 **A Azure ML Studio (UI)**:
 1. Go to Azure ML Studio → Endpoints.
 2. Click your online endpoint (the one you created with the deployment script).
