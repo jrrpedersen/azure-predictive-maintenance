@@ -42,24 +42,19 @@ def init():
 
 def run(raw_data):
     try:
-        data = json.loads(raw_data)
+        # Accept both JSON string and dict
+        if isinstance(raw_data, (str, bytes)):
+            data = json.loads(raw_data)
+        else:
+            data = raw_data
 
         if "data" not in data:
             return json.dumps({"error": "Request JSON must contain a 'data' field."})
 
         df = pd.DataFrame(data["data"])
 
-        # Enforce same column set and order as training
-        missing = set(FEATURE_COLS) - set(df.columns)
-        extra = set(df.columns) - set(FEATURE_COLS)
-
-        if missing:
-            return json.dumps({"error": f"Missing features: {sorted(missing)}"})
-        if extra:
-            # You can ignore or warn about extra columns
-            df = df[FEATURE_COLS]
-        else:
-            df = df[FEATURE_COLS]
+        # Reorder / subset to FEATURE_COLS
+        df = df[FEATURE_COLS]
 
         proba = model.predict_proba(df)[:, 1]
         labels = (proba >= BEST_THRESHOLD).astype(int)
