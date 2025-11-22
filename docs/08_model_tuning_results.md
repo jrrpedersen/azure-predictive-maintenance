@@ -76,8 +76,8 @@ This is a classic result for extremely imbalanced, noisy, high-dimensional data.
 ---
 
 ## 5. Curve Interpretation
-![ROC and Precision//Recall Curves Validation Dataset](figures/azure_pdm_02_tuned_model_roc_prec_recall_curves_val.png)
-![ROC and Precision//Recall Curves Test Dataset](figures/azure_pdm_02_tuned_model_roc_prec_recall_curves_test.png)
+![ROC and Precision//Recall Curves Validation Dataset](../figures/azure_pdm_02_tuned_model_roc_prec_recall_curves_val.png)
+![ROC and Precision//Recall Curves Test Dataset](../figures/azure_pdm_02_tuned_model_roc_prec_recall_curves_test.png)
 
 ### ROC Curve Observations
 
