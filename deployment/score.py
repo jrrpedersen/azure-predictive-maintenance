@@ -10,18 +10,33 @@ BEST_THRESHOLD = 0.51
 FEATURE_COLS = None
 
 def init():
+    # global model, FEATURE_COLS
+    # model_path = "xgb_pdm_finetuned.pkl"
+    # model = joblib.load(model_path)
+
+    # # Load feature column order
+    # with open("feature_cols.json", "r") as f:
+    #     FEATURE_COLS = json.load(f)
+
+    # print("Model loaded from", model_path)
+    # print("Loaded", len(FEATURE_COLS), "feature columns.")
+    # print("Using BEST_THRESHOLD =", BEST_THRESHOLD)
     global model, FEATURE_COLS
-    model_path = "xgb_pdm_finetuned.pkl"
+
+    # Use the path where Azure ML mounts the registered model
+    model_dir = os.getenv("AZUREML_MODEL_DIR", ".")
+    model_path = os.path.join(model_dir, "xgb_pdm_finetuned.pkl")
+
     model = joblib.load(model_path)
 
-    # Load feature column order
-    with open("feature_cols.json", "r") as f:
+    # feature_cols.json should be deployed with your code (same folder as score.py)
+    feature_cols_path = os.path.join(os.path.dirname(__file__), "feature_cols.json")
+    with open(feature_cols_path, "r") as f:
         FEATURE_COLS = json.load(f)
 
     print("Model loaded from", model_path)
     print("Loaded", len(FEATURE_COLS), "feature columns.")
     print("Using BEST_THRESHOLD =", BEST_THRESHOLD)
-
 
 def run(raw_data):
     try:
