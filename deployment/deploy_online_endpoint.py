@@ -24,7 +24,7 @@ REGISTERED_MODEL_NAME = "scania-pdm-xgb-finetuned"  # adjust if needed
 
 # Endpoint and deployment names (must be unique in workspace)
 timestamp = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
-ENDPOINT_NAME = f"scania-pdm-endpoint-{timestamp.lower()}"
+ENDPOINT_NAME = f"scania-pdm-{timestamp.lower()}"
 DEPLOYMENT_NAME = "xgb-tuned-deployment"
 
 # 1. Connect to workspace
@@ -38,7 +38,7 @@ ml_client = MLClient(
 print("Connected to workspace:", WORKSPACE_NAME)
 
 # 2. Reference the registered model
-model = ml_client.models.get(name=REGISTERED_MODEL_NAME, version=None)
+model = ml_client.models.get(name=REGISTERED_MODEL_NAME, version=1)
 print("Using registered model:", model.name, "version:", model.version)
 
 # 3. Define environment for deployment
@@ -46,7 +46,8 @@ env = Environment(
     name="scania-pdm-endpoint-env",
     description="Environment for Scania PDM XGBoost endpoint",
     conda_file="conda.yaml",
-    image="mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04",
+    #image="mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04",
+    image="mcr.microsoft.com/azureml/minimal-ubuntu20.04-py38-cpu-inference:latest"
 )
 
 # 4. Create endpoint definition
@@ -70,7 +71,7 @@ deployment = ManagedOnlineDeployment(
         code=".",            # directory containing score.py and model file
         scoring_script="score.py",
     ),
-    instance_type="Standard_DS3_v2",
+    instance_type="Standard_DS2_v2",
     instance_count=1,
 )
 
