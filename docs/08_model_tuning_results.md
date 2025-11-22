@@ -2,7 +2,7 @@
 
 ## 1. Summary of Expectations vs. Outcomes
 
-You performed a systematic hyperparameter search on XGBoost — tuning depth, learning rate, subsampling, regularization, and class weighting — with the goal of:
+We performed a systematic hyperparameter search on XGBoost - tuning depth, learning rate, subsampling, regularization, and class weighting - with the goal of:
 
 * Improving minority-class detection  
 * Improving ROC-AUC and PR-AUC on validation/test  
@@ -47,7 +47,7 @@ This is a classic result for extremely imbalanced, noisy, high-dimensional data.
 | Train Recall (positive class) | 0.985 | **0.992** |
 | Train Precision (positive class) | 0.548 | **0.914** |
 
-➡️ **Incredible training performance → clear overfitting.**
+**Incredible training performance → clear overfitting.**
 
 ---
 
@@ -76,6 +76,8 @@ This is a classic result for extremely imbalanced, noisy, high-dimensional data.
 ---
 
 ## 5. Curve Interpretation
+![ROC and Precision//Recall Curves Validation Dataset](figures/azure_pdm_02_tuned_model_roc_prec_recall_curves_val.png)
+![ROC and Precision//Recall Curves Test Dataset](figures/azure_pdm_02_tuned_model_roc_prec_recall_curves_test.png)
 
 ### ROC Curve Observations
 
@@ -94,7 +96,7 @@ The tuned model detects more positive cases, but at a **much higher false-positi
 
 ## 6. Why Tuning Didn’t Improve AUC
 
-### **Reason 1 — Extreme Class Imbalance**
+### **Reason 1 - Extreme Class Imbalance**
 
 Training minority rate:
 
@@ -106,7 +108,7 @@ This creates a **distribution shift**:
 * Model optimizes for training distribution  
 * Validation/test contain much rarer failures  
 
-### **Reason 2 — Static Feature Engineering**
+### **Reason 2 - Static Feature Engineering**
 
 We used:
 
@@ -119,15 +121,15 @@ But XGBoost may not capture sequential time-dependent structure.
 
 **Likely biggest signal loss.**
 
-### **Reason 3 — Tuned Model Is Deeper & Trained Longer**
+### **Reason 3 - Tuned Model Is Deeper & Trained Longer**
 
 * Increased `n_estimators`  
 * Increased `scale_pos_weight`  
 * Increased tree depth (`max_depth = 5`)  
 
-➡️ Drives model to **fit training noise**.
+Drives model to **fit training noise**.
 
-### **Reason 4 — Label Semantics Changed**
+### **Reason 4 - Label Semantics Changed**
 
 Validation/test labels use:
 
@@ -136,7 +138,7 @@ Validation/test labels use:
 
 This differs from true TTE-based failure definitions used in training.
 
-➡️ Creates **mismatch** and reduces generalization.
+Creates **mismatch** and reduces generalization.
 
 ---
 
@@ -153,7 +155,7 @@ This means:
 
 This matters because:
 
-➡️ In rare-failure scenarios, **missing a failure is much more costly** than false positives.
+In rare-failure scenarios, **missing a failure is much more costly** than false positives.
 
 ---
 
@@ -176,12 +178,12 @@ This matters because:
 
 ## 9. Recommendations for Next Steps
 
-### **Step 1 — Improve Labels**
+### **Step 1 - Improve Labels**
 
 Use true TTE values to define consistent labels for all splits.  
 This should **significantly improve generalization**.
 
-### **Step 2 — Use Sequence-Aware Models**
+### **Step 2 - Use Sequence-Aware Models**
 
 Such as:
 
@@ -194,20 +196,20 @@ Such as:
 
 These can capture **time-dependent failure signals**.
 
-### **Step 3 — Optimize Thresholds**
+### **Step 3 - Optimize Thresholds**
 
 0.5 is never optimal for rare-event detection.  
 Tune thresholds for:
 
 * ROC  
-* Precision–Recall  
+* Precision-Recall  
 * Cost-based metrics  
 
-### **Step 4 — Use Stratified Evaluation**
+### **Step 4 - Use Stratified Evaluation**
 
 Make sure validation/test splits reflect true failure distribution.
 
-### **Step 5 — Adopt Cost-Based Evaluation**
+### **Step 5 - Adopt Cost-Based Evaluation**
 
 Define:
 
@@ -218,6 +220,6 @@ Choose model + threshold to **minimize business risk**.
 
 ---
 
-## 10. Conclusion (One Sentence)
+## 10. Conclusion
 
 **Hyperparameter tuning increased overfitting and did not improve generalization, except for a small gain in test PR-AUC; the next steps must focus on label consistency and temporal modeling.**
