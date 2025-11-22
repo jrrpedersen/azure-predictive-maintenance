@@ -71,7 +71,7 @@ deployment = ManagedOnlineDeployment(
         code=".",            # directory containing score.py and model file
         scoring_script="score.py",
     ),
-    instance_type="Standard_DS2_v2",
+    instance_type="Standard_DS3_v2",
     instance_count=1,
 )
 
