@@ -6,10 +6,9 @@ dependencies:
   - python=3.8       # match the base image
   - pip
   - pip:
+      - azureml-inference-server-http
       - numpy
       - pandas
       - scikit-learn
       - xgboost
       - joblib
-      # nothing AzureML-specific needed in the scoring container
-
