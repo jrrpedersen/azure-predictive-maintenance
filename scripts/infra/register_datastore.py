@@ -2,13 +2,12 @@ from azure.identity import DefaultAzureCredential
 from azure.ai.ml import MLClient
 from azure.ai.ml.entities import AzureDataLakeGen2Datastore
 
-# TODO: replace these values with your real ones
 SUBSCRIPTION_ID = "52124f51-27f5-4c3c-99a9-fa716e4e8cfe"
 RESOURCE_GROUP = "scania-pdm-rg"
 WORKSPACE_NAME = "scania-pdm-ws"
 
 STORAGE_ACCOUNT_NAME = "scaniapdmstorage"
-FILESYSTEM_NAME = "scania-dataset"  # container/filesystem you’ll create for the data
+FILESYSTEM_NAME = "scania-dataset"  # container/filesystem created for the data
 
 def main():
     credential = DefaultAzureCredential()
@@ -25,7 +24,6 @@ def main():
         description="ADLS Gen2 datastore for SCANIA PdM dataset",
         account_name=STORAGE_ACCOUNT_NAME,
         filesystem=FILESYSTEM_NAME,
-        # We can refine credentials later; for now, this will try managed/interactive auth
     )
 
     ml_client.datastores.create_or_update(datastore)
