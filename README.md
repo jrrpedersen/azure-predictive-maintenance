@@ -79,6 +79,7 @@ Main components:
 ```text
 .
 ├─ figures
+│  └─ ...
 ├─ docs/
 │  ├─ 01_setup_azure.md
 │  ├─ 02_register_datastore.md
