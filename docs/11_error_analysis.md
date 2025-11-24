@@ -137,9 +137,9 @@ This confirms the model’s sensitivity to **shape-based features**, particularl
 
 To quantify FP–FN separation:
 
-\[
+$$
 d = \frac{\mu_{\mathrm{FP}} - \mu_{\mathrm{FN}}}{\sigma_{\mathrm{pooled}}}
-\]
+$$
 
 Consistently:
 
