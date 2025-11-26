@@ -268,10 +268,4 @@ By deploying the tuned XGBoost model as an online endpoint and successfully invo
 5. Online endpoint deployment with `score.py` and a custom environment  
 6. Real-time scoring via REST API
 
-For a potential employer, you can now show:
-
-- The full code for data → features → model → endpoint  
-- How to call the endpoint with real feature vectors  
-- How business logic (cost-based thresholding) is embedded into the endpoint’s output
-
 This closes the loop from raw data to a callable AI service.
