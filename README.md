@@ -90,7 +90,9 @@ Main components:
 │  ├─ 07_baseline_model_training.md
 │  ├─ 08_model_tuning_results.md
 │  ├─ 09_cost_based_thresholding.md
-│  └─ 10_online_inference.md
+│  ├─ 10_online_inference.md
+|  ├─ 11_error_analysis.md
+|  └─ 12_extended_error_analysis.md
 ├─ src/
 │  └─ feature_engineering.py
 ├─ scripts/
