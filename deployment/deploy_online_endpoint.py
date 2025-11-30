@@ -15,7 +15,7 @@ from azure.ai.ml.entities import (
 import datetime
 
 # Workspace config - fill in your values
-SUBSCRIPTION_ID = "52124f51-27f5-4c3c-99a9-fa716e4e8cfe"
+SUBSCRIPTION_ID = "<subscription_id>"
 RESOURCE_GROUP = "scania-pdm-rg"
 WORKSPACE_NAME = "scania-pdm-ws"
 
