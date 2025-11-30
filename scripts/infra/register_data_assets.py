@@ -6,7 +6,7 @@ from azure.ai.ml.constants import AssetTypes
 # ----------------------------
 # Workspace configuration
 # ----------------------------
-SUBSCRIPTION_ID = "52124f51-27f5-4c3c-99a9-fa716e4e8cfe" #"<YOUR-SUBSCRIPTION-ID>"   # GUID
+SUBSCRIPTION_ID = "<YOUR-SUBSCRIPTION-ID>"   # GUID
 RESOURCE_GROUP = "scania-pdm-rg"
 WORKSPACE_NAME = "scania-pdm-ws"
 
