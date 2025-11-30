@@ -1,7 +1,7 @@
 from azure.identity import DefaultAzureCredential
 from azure.ai.ml import MLClient
 
-SUBSCRIPTION_ID = ""52124f51-27f5-4c3c-99a9-fa716e4e8cfe"" #"<YOUR-SUBSCRIPTION-ID>"
+SUBSCRIPTION_ID = "<YOUR-SUBSCRIPTION-ID>"
 RESOURCE_GROUP = "scania-pdm-rg"
 WORKSPACE_NAME = "scania-pdm-ws"
 
