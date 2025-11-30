@@ -4,7 +4,7 @@ import requests
 
 # Fill with values from Azure ML Studio
 SCORING_URL = "https://scania-pdm-20251123130737.westeurope.inference.ml.azure.com/score" #"<endpoint-scoring-url>"
-API_KEY = "LASe471Gea5ZvamYR4EZkVON32iS2AoDYqh6NO7p1vXI9dLKwl50JQQJ99BKAAAAAAAAAAAAINFRAZML11FR" #"<primary-key>"
+API_KEY = "<primary-key>"
 
 headers = {
     "Content-Type": "application/json",
