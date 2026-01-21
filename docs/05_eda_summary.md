@@ -7,6 +7,7 @@ The goal of this EDA is to:
 * Explore class imbalance and target distribution
 * Examine the temporal structure of vehicle operational data
 * Prepare insights that guide our modeling and feature engineering strategy
+
 The findings here inform the next stage: data engineering and model pipeline design.
 
 ## 1. Dataset Structure
