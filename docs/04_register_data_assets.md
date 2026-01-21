@@ -35,12 +35,12 @@ scaniapdmstorage
     ├── validation/
     └── test/
 ```
-### Step 3 - Run the registration script
+## Step 2 - Run the registration script
 ```powershell
 python ./scripts/infra/register_data_assets.py
 ```
 
-## Step 4 - Verify in Azure ML Studio
+## Step 3 - Verify in Azure ML Studio
 
 Go to:
 
