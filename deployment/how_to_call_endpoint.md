@@ -2,10 +2,10 @@ To get SCORING_URL and API_KEY:
 
 **A Azure ML Studio (UI)**:
 1. Go to Azure ML Studio → Endpoints.
-2. Click your online endpoint (the one you created with the deployment script).
+2. Click your online endpoint (the one created with the deployment script).
 3. In the left panel (or top tabs), click “Consume” or “Details” (depends on UI version).
-  * REST endpoint → this is your SCORING_URL
-  * Primary key / Secondary key → one of these is your API_KEY
+  * REST endpoint → this is the SCORING_URL
+  * Primary key / Secondary key → one of these is the API_KEY
 
 **B Via the Python SDK**
 From the compute instance, run:
